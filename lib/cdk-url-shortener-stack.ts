@@ -1,16 +1,17 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import { join } from 'path';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CdkUrlShortenerStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const helloLambdaNode = new NodejsFunction(this, 'hellowLambdaNode', {
+      entry: join(__dirname, "..", "services", "lambdas", "shortener.ts"),
+      handler: "handler"
+    })
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'CdkUrlShortenerQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
   }
 }
