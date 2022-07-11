@@ -1,0 +1,12 @@
+
+
+@root = https://9bq0zbozc5.execute-api.us-east-1.amazonaws.com/prod/
+
+POST {{root}}/create
+content-type: application/json
+
+{
+    "url": "http://www.google.com"
+}
+
+###

@@ -1,10 +1,11 @@
-import { Stack } from "aws-cdk-lib"
+import { RemovalPolicy, Stack } from "aws-cdk-lib"
 import { AttributeType, Table } from "aws-cdk-lib/aws-dynamodb"
+import { Lambda } from "aws-cdk-lib/aws-ses-actions"
 
 
 
 export class BasicTable {
-    private name: string
+    public name: string
     private primaryKey: string
     private stack: Stack
     private table: Table
@@ -26,7 +27,12 @@ export class BasicTable {
                 name: this.primaryKey,
                 type: AttributeType.STRING
             },
-            tableName: this.name
+            tableName: this.name,
+            removalPolicy: RemovalPolicy.DESTROY
         })
+    }
+
+    public addLambdaPermission(lambda: any) {
+        this.table.grantReadWriteData(lambda)
     }
 }
